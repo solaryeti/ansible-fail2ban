@@ -1,0 +1,9 @@
+---
+- name: squid fail2ban jail
+  template: dest=/etc/fail2ban/jail.d/jail-squid.local
+            src=jail-squid.j2
+            owner=root
+            group=root
+            mode=0644
+  notify: reload fail2ban
+  tags: fail2ban

@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+
+[squid]
+enabled = true
+filter  = squid
+action  = iptables-multiport[name=squid,port="80,443,8080"]
+logpath = {{ squid_logpath }}

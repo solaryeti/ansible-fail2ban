@@ -1,0 +1,45 @@
+---
+- name: postfix fail2ban jail
+  template: dest=/etc/fail2ban/jail.d/jail-postfix.local
+            src=jail-postfix.j2
+            owner=root
+            group=root
+            mode=0644
+  notify: reload fail2ban
+  tags: fail2ban
+
+- name: postfix.local
+  template: dest=/etc/fail2ban/filter.d/postfix.local
+            src=postfix.local.j2
+            owner=root
+            group=root
+            mode=0644
+  notify: reload fail2ban
+  tags: fail2ban
+
+- name: sasl.local
+  template: dest=/etc/fail2ban/filter.d/sasl.local
+            src=sasl.local.j2
+            owner=root
+            group=root
+            mode=0644
+  notify: reload fail2ban
+  tags: fail2ban
+
+- name: sasl fail2ban jail
+  template: dest=/etc/fail2ban/jail.d/jail-sasl.local
+            src=jail-sasl.j2
+            owner=root
+            group=root
+            mode=0644
+  notify: reload fail2ban
+  tags: fail2ban
+
+- name: dovecot fail2ban jail
+  template: dest=/etc/fail2ban/jail.d/jail-dovecot.local
+            src=jail-dovecot.j2
+            owner=root
+            group=root
+            mode=0644
+  notify: reload fail2ban
+  tags: fail2ban

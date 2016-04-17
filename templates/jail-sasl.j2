@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+
+[sasl-iptables]
+enabled = true
+filter = sasl
+action = iptables-multiport[name=sasl, port="smtp,submission", protocol=tcp]
+         sendmail[name=sasl, dest={{ fail2ban_email }}]
+logpath = {{ mail_logpath }}
+maxretry = 3
+findtime = 3600
+bantime = 86400

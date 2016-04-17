@@ -1,0 +1,38 @@
+---
+- name: fail2ban package
+  zypper: name=fail2ban state=present
+  tags: fail2ban
+
+- name: whois package
+  zypper: name=whois state=present
+  tags: fail2ban
+
+- name: fail2ban jail.d directory
+  file: dest=/etc/fail2ban/jail.d
+        state=directory
+        owner=root
+        group=root
+        mode=0644
+  tags: fail2ban
+
+- name: fail2ban custom config
+  template: dest=/etc/fail2ban/jail.d/jail.local
+            src=jail.local.j2
+            owner=root
+            group=root
+            mode=0644
+  notify: reload fail2ban
+  tags: fail2ban
+
+- name: fail2ban service
+  service: name=fail2ban enabled=yes state=started
+  tags: fail2ban
+
+- include: apache.yml
+  when: include_apache
+
+- include: mailserver.yml
+  when: include_mailserver
+
+- include: squid.yml
+  when: include_squid

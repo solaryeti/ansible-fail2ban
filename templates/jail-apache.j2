@@ -1,0 +1,40 @@
+# {{ ansible_managed }}
+
+# Ban hosts which agent identifies spammer robots crawling the web
+# for email addresses. The mail outputs are buffered.
+[apache-badbots]
+enabled  = true
+filter   = apache-badbots
+action   = iptables-multiport[name=BadBots, port="http,https"]
+           sendmail-buffered[name=BadBots, lines=5, dest={{ fail2ban_email }}]
+logpath  = /var/log/apache2/*access_log
+bantime  = 172800
+maxretry = 1
+
+[apache-tcpwrapper]
+enabled  = true
+filter   = apache-auth
+action   = hostsdeny
+logpath  = {{ apache_logpath }}
+maxretry = 6
+
+[apache-modsecurity]
+enabled  = true
+filter   = apache-modsecurity
+action   = iptables-multiport[name=apache-modsecurity,port="80,443"]
+logpath  = {{ apache_logpath }}	   
+maxretry = 2
+
+[apache-overflows]
+enabled  = true
+filter   = apache-overflows
+action   = iptables-multiport[name=apache-overflows,port="80,443"]
+logpath  = {{ apache_logpath }}	   
+maxretry = 2
+
+[apache-nohome]
+enabled  = true
+filter   = apache-nohome
+action   = iptables-multiport[name=apache-nohome,port="80,443"]
+logpath  = {{ apache_logpath }}	   
+maxretry = 2

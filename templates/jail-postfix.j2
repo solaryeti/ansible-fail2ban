@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+[postfix-tcpwrapper]
+enabled  = true
+filter   = postfix
+action   = iptables-multiport[name=postfix, port="smtp,submission", protocol=tcp]
+           sendmail[name=postfix, dest={{ fail2ban_email }}]
+logpath  = {{ mail_logpath }}
+bantime = 300

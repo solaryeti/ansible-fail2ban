@@ -1,0 +1,16 @@
+---
+# Apache protection
+include_apache: false
+apache_logpath: /var/log/apache*/*error_log
+
+# Postfix, Dovecot protection
+include_mailserver: false
+mail_logpath: /var/log/mail
+
+# Squid protection
+include_squid: false
+squid_logpath: /var/log/squid/access.log
+
+# General fail2ban settings
+default_bantime: 86400
+fail2ban_email: user@example.com

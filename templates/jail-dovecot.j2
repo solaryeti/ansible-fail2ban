@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+
+[dovecot]
+enabled = true
+filter  = dovecot
+action  = iptables-multiport[name=dovecot, port="pop3,pop3s,imap,imaps,submission,465,sieve", protocol=tcp]
+logpath = {{ mail_logpath }}

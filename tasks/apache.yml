@@ -1,0 +1,9 @@
+---
+- name: apache fail2ban jail
+  template: dest=/etc/fail2ban/jail.d/jail-apache.local
+            src=jail-apache.j2
+            owner=root
+            group=root
+            mode=0644
+  notify: reload fail2ban
+  tags: fail2ban
